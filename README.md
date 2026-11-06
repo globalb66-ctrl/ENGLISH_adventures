@@ -1,5 +1,5 @@
-# Mohamed & Malak’s English Adventure
+# Mohamed & Malak’s apps
 
-Duolingo-style English practice app (Oxford Discover Level 2) for Mohamed and Malak.
-
-Open: https://globalb66-ctrl.github.io/ENGLISH_adventures/
+- English Adventure: https://globalb66-ctrl.github.io/ENGLISH_adventures/
+- Say It!: https://globalb66-ctrl.github.io/ENGLISH_adventures/say-it/
+- Hero Week: https://globalb66-ctrl.github.io/ENGLISH_adventures/hero-week/

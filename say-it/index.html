@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#BFE6FF">
+<title>Little Explorers · Say It!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* One bright sky-and-sun world for the kids (deliberately light-only). Big touch targets, one task per screen. */
+:root{color-scheme:light;--sky:#EAF6FF;--sky2:#BFE6FF;--card:#fff;--coral:#FF6B6B;--sun:#FFD166;--grass:#06D6A0;--violet:#9B5DE5;--navy:#1B4965;--soft:#5B7C99;--line:#E3EDF5;
+--kid:var(--violet);--kidd:#7a3fc4}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--sky);color:var(--navy);font-family:'Nunito',system-ui,sans-serif}
+body{min-height:100vh;padding:0 max(16px,env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+body.mohamed{--kid:#FF6B6B;--kidd:#d24f4f}
+body.noura{--kid:#06A77D;--kidd:#04866a}
+.wrap{max-width:620px;margin:0 auto}
+h1,h2,.baloo{font-family:'Baloo 2',system-ui,sans-serif}
+h1{font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1.05;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 0 6px;gap:8px}
+.iconbtn{border:0;background:#fff;width:48px;height:48px;border-radius:50%;font-size:22px;cursor:pointer;box-shadow:0 3px 0 rgba(27,73,101,.12)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky2),var(--sky));margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:30px 20px 28px;text-align:center}
+.hero .sun{position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:var(--sun);border-radius:50%;box-shadow:0 0 0 14px rgba(255,209,102,.35)}
+.hero p{font-size:18px;font-weight:700;color:var(--soft);margin:10px auto 0;max-width:30ch;position:relative}
+.hero h1{position:relative}
+.kids{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.kidc{border:0;border-radius:24px;padding:16px 6px 14px;background:#fff;cursor:pointer;box-shadow:0 6px 0 rgba(27,73,101,.10);display:flex;flex-direction:column;align-items:center;gap:4px;font:inherit;color:var(--navy)}
+.kidc .av{font-size:clamp(44px,13vw,64px);line-height:1}
+.kidc b{font-family:'Baloo 2',system-ui,sans-serif;font-size:clamp(19px,5.5vw,26px);font-weight:800}
+.kidc.m{border-bottom:6px solid var(--violet)}.kidc.o{border-bottom:6px solid var(--coral)}.kidc.n{border-bottom:6px solid #06A77D}
+.kidc .stars{font-weight:800;color:var(--soft);font-size:12px;text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.chip{border:2px solid transparent;background:#fff;border-radius:999px;padding:9px 14px;font:inherit;font-weight:800;font-size:15px;color:var(--navy);cursor:pointer;box-shadow:0 3px 0 rgba(27,73,101,.10)}
+.chip.on{background:var(--navy);color:#fff}
+.lbl{text-align:center;font-weight:800;color:var(--soft);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-top:18px}
+.link{display:block;text-align:center;margin:18px auto 0;font-weight:800;color:var(--soft);background:none;border:0;font:inherit;font-weight:800;cursor:pointer;text-decoration:underline}
+/* game */
+.progress{display:flex;gap:8px;justify-content:center;margin:6px 0 10px}
+.progress span{font-size:34px;filter:grayscale(1);opacity:.3;transition:transform .3s}
+.progress span.on{filter:none;opacity:1;transform:scale(1.15)}
+.tier{display:inline-block;border-radius:999px;padding:6px 16px;font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:18px;color:#fff;background:var(--grass);margin-top:8px}.tier.good{background:#f4a623}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px}.rules div{background:#fff;border-radius:18px;padding:10px;text-align:center;font-weight:800;box-shadow:0 3px 0 rgba(27,73,101,.08)}.rules b{display:block;font-family:'Baloo 2',system-ui,sans-serif;font-size:24px}
+.who{display:flex;align-items:center;gap:10px;font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:22px}
+.who .av{font-size:34px}
+.pc{background:#fff;border-radius:30px;padding:22px 18px;text-align:center;box-shadow:0 8px 0 rgba(27,73,101,.08);border:4px dashed #FFD8D8;margin-top:6px}
+.pc .em{font-size:84px;line-height:1.1}
+.pc .en{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:20px;color:var(--soft);margin-top:4px}
+.pc .say{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,8vw,44px);line-height:1.15;margin:8px 0 2px;overflow-wrap:anywhere}
+.pc .pron{font-weight:700;color:var(--soft);font-size:17px}
+.pc .flag{font-size:22px}
+.btns{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:16px}
+.big{border:0;border-radius:22px;min-height:76px;font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--navy);background:#fff;box-shadow:0 5px 0 rgba(27,73,101,.15)}
+.big:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(27,73,101,.15)}
+.big.mic{background:var(--kid);color:#fff;box-shadow:0 5px 0 var(--kidd)}
+.big.mic.rec{background:var(--grass);box-shadow:0 5px 0 #04a57b;animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.big:focus-visible,.chip:focus-visible,.kidc:focus-visible,.iconbtn:focus-visible{outline:4px solid var(--navy);outline-offset:3px}
+.fb{min-height:64px;text-align:center;margin-top:14px;font-weight:800;font-size:20px}
+.fb .heard{display:block;font-size:15px;color:var(--soft);font-weight:700;margin-top:4px}
+.fb.ok{color:#04976f}.fb.no{color:var(--coral)}
+.parentrow{display:flex;gap:10px;justify-content:center;margin-top:8px}
+.small{border:0;background:#fff;border-radius:14px;padding:10px 14px;font:inherit;font-weight:800;color:var(--navy);cursor:pointer;box-shadow:0 3px 0 rgba(27,73,101,.10);min-height:44px}
+/* reward */
+.reward{text-align:center;padding-top:20px}
+.reward .trophy{font-size:96px;animation:bounce 1.2s infinite}
+@keyframes bounce{50%{transform:translateY(-12px)}}
+.reward h1{color:var(--kid)}
+.tablet{background:#fff;border-radius:30px;padding:22px;margin:20px 0;box-shadow:0 8px 0 rgba(27,73,101,.08)}
+.clock{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:clamp(64px,20vw,110px);line-height:1;font-variant-numeric:tabular-nums;color:var(--navy)}
+.bar{height:16px;border-radius:9px;background:var(--line);overflow:hidden;margin:14px 0}
+.bar i{display:block;height:100%;background:var(--grass);border-radius:9px;transition:width 1s linear}
+/* words + settings */
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+.wc{background:#fff;border-radius:18px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 0 rgba(27,73,101,.06)}
+.wc .e{font-size:30px}.wc b{display:block;font-size:16px;overflow-wrap:anywhere}.wc small{color:var(--soft);font-weight:700}.wc .x{margin-left:auto}
+.wc.done{outline:3px solid var(--grass)}
+.panel{background:#fff;border-radius:22px;padding:16px;margin:12px 0;box-shadow:0 4px 0 rgba(27,73,101,.06)}
+.panel label{display:block;font-weight:800;margin:10px 0 4px;color:var(--soft);font-size:14px}
+.panel input,.panel select{width:100%;min-height:48px;border-radius:14px;border:2px solid var(--line);padding:8px 12px;font:inherit;font-size:16px;color:var(--navy);background:#fff}
+.hint{color:var(--soft);font-weight:600;font-size:14px;margin:6px 0}
+.warn{background:#FFF4D6;border-radius:16px;padding:12px 14px;font-weight:700;font-size:14px;margin:10px 0}
+canvas#cf{position:fixed;inset:0;pointer-events:none;z-index:50}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#BFE6FF"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"></head>
+<body>
+<canvas id="cf"></canvas>
+<div class="wrap" id="app"></div>
+<script>
+const DATA = [
+  {emoji:"👋", cat:"greet", en:"Hello", zh:"你好", zhP:"Nǐ hǎo", de:"Hallo", es:"Hola", fr:"Bonjour", ar:"مرحبا", arP:"Marhaban", ja:"こんにちは", jaP:"Konnichiwa"},
+  {emoji:"🌞", cat:"greet", en:"Good morning", zh:"早上好", zhP:"Zǎoshang hǎo", de:"Guten Morgen", es:"Buenos días", fr:"Bonjour", ar:"صباح الخير", arP:"Sabah al-khayr", ja:"おはようございます", jaP:"Ohayou gozaimasu"},
+  {emoji:"🌙", cat:"greet", en:"Good night", zh:"晚安", zhP:"Wǎn'ān", de:"Gute Nacht", es:"Buenas noches", fr:"Bonne nuit", ar:"تصبح على خير", arP:"Tusbih ala khayr", ja:"おやすみなさい", jaP:"Oyasumi nasai"},
+  {emoji:"🚶", cat:"greet", en:"Goodbye", zh:"再见", zhP:"Zàijiàn", de:"Auf Wiedersehen", es:"Adiós", fr:"Au revoir", ar:"مع السلامة", arP:"Ma'a as-salama", ja:"さようなら", jaP:"Sayounara"},
+  {emoji:"🙏", cat:"greet", en:"Please", zh:"请", zhP:"Qǐng", de:"Bitte", es:"Por favor", fr:"S'il te plaît", ar:"من فضلك", arP:"Min fadlik", ja:"お願いします", jaP:"Onegaishimasu"},
+  {emoji:"💐", cat:"greet", en:"Thank you", zh:"谢谢", zhP:"Xièxiè", de:"Danke", es:"Gracias", fr:"Merci", ar:"شكرا", arP:"Shukran", ja:"ありがとう", jaP:"Arigatou"},
+  {emoji:"😊", cat:"greet", en:"You're welcome", zh:"不客气", zhP:"Bú kèqì", de:"Bitte schön", es:"De nada", fr:"De rien", ar:"عفوا", arP:"Afwan", ja:"どういたしまして", jaP:"Dou itashimashite"},
+  {emoji:"✅", cat:"me", en:"Yes", zh:"是", zhP:"Shì", de:"Ja", es:"Sí", fr:"Oui", ar:"نعم", arP:"Na'am", ja:"はい", jaP:"Hai"},
+  {emoji:"❌", cat:"me", en:"No", zh:"不", zhP:"Bù", de:"Nein", es:"No", fr:"Non", ar:"لا", arP:"La", ja:"いいえ", jaP:"Iie"},
+  {emoji:"😔", cat:"greet", en:"Sorry", zh:"对不起", zhP:"Duìbùqǐ", de:"Es tut mir leid", es:"Lo siento", fr:"Désolé", frF:"Désolée", ar:"آسف", arP:"Asif", arF:"آسفة", arPF:"Asifa", ja:"ごめんなさい", jaP:"Gomen nasai"},
+  {emoji:"🙋", cat:"greet", en:"Excuse me", zh:"打扰一下", zhP:"Dǎrǎo yíxià", de:"Entschuldigung", es:"Disculpa", fr:"Excuse-moi", ar:"لو سمحت", arP:"Law samaht", ja:"すみません", jaP:"Sumimasen"},
+  {emoji:"🏷️", cat:"me", en:"My name is...", zh:"我叫...", zhP:"Wǒ jiào...", de:"Ich heiße...", es:"Me llamo...", fr:"Je m'appelle...", ar:"اسمي...", arP:"Ismi...", ja:"私の名前は...です", jaP:"Watashi no namae wa ... desu"},
+  {emoji:"❓", cat:"me", en:"What is your name?", zh:"你叫什么名字？", zhP:"Nǐ jiào shénme míngzì?", de:"Wie heißt du?", es:"¿Cómo te llamas?", fr:"Comment tu t'appelles ?", ar:"ما اسمك؟", arP:"Ma ismuka?", ja:"お名前は何ですか？", jaP:"Onamae wa nan desu ka?"},
+  {emoji:"🤔", cat:"greet", en:"How are you?", zh:"你好吗？", zhP:"Nǐ hǎo ma?", de:"Wie geht es dir?", es:"¿Cómo estás?", fr:"Comment ça va ?", ar:"كيف حالك؟", arP:"Kayfa haluka?", ja:"お元気ですか？", jaP:"Ogenki desu ka?"},
+  {emoji:"👍", cat:"feel", en:"I am fine", zh:"我很好", zhP:"Wǒ hěn hǎo", de:"Mir geht es gut", es:"Estoy bien", fr:"Je vais bien", ar:"أنا بخير", arP:"Ana bikhayr", ja:"元気です", jaP:"Genki desu"},
+  {emoji:"😄", cat:"feel", en:"I am happy", zh:"我很开心", zhP:"Wǒ hěn kāixīn", de:"Ich bin glücklich", es:"Estoy feliz", fr:"Je suis content", frF:"Je suis contente", ar:"أنا سعيد", arP:"Ana sa'eed", arF:"أنا سعيدة", arPF:"Ana sa'eeda", ja:"嬉しいです", jaP:"Ureshii desu"},
+  {emoji:"😢", cat:"feel", en:"I am sad", zh:"我很难过", zhP:"Wǒ hěn nánguò", de:"Ich bin traurig", es:"Estoy triste", fr:"Je suis triste", ar:"أنا حزين", arP:"Ana hazeen", arF:"أنا حزينة", arPF:"Ana hazeena", ja:"悲しいです", jaP:"Kanashii desu"},
+  {emoji:"😴", cat:"feel", en:"I am tired", zh:"我累了", zhP:"Wǒ lèi le", de:"Ich bin müde", es:"Estoy cansado", esF:"Estoy cansada", fr:"Je suis fatigué", frF:"Je suis fatiguée", ar:"أنا متعب", arP:"Ana muta'ab", arF:"أنا متعبة", arPF:"Ana muta'aba", ja:"疲れました", jaP:"Tsukaremashita"},
+  {emoji:"🍎", cat:"need", en:"I am hungry", zh:"我饿了", zhP:"Wǒ è le", de:"Ich habe Hunger", es:"Tengo hambre", fr:"J'ai faim", ar:"أنا جائع", arP:"Ana jaa'i", arF:"أنا جائعة", arPF:"Ana jaa'i'a", ja:"お腹が空きました", jaP:"Onaka ga sukimashita"},
+  {emoji:"🥤", cat:"need", en:"I am thirsty", zh:"我渴了", zhP:"Wǒ kě le", de:"Ich habe Durst", es:"Tengo sed", fr:"J'ai soif", ar:"أنا عطشان", arP:"Ana atshan", arF:"أنا عطشانة", arPF:"Ana atshana", ja:"喉が渇きました", jaP:"Nodo ga kawakimashita"},
+  {emoji:"❤️", cat:"feel", en:"I love you", zh:"我爱你", zhP:"Wǒ ài nǐ", de:"Ich liebe dich", es:"Te quiero", fr:"Je t'aime", ar:"أحبك", arP:"Uhibbuka", ja:"愛してる", jaP:"Aishiteru"},
+  {emoji:"💧", cat:"need", en:"I want water", zh:"我要水", zhP:"Wǒ yào shuǐ", de:"Ich möchte Wasser", es:"Quiero agua", fr:"Je veux de l'eau", ar:"أريد الماء", arP:"Ureed al-maa", ja:"水が欲しいです", jaP:"Mizu ga hoshii desu"},
+  {emoji:"🍽️", cat:"need", en:"I want food", zh:"我要吃饭", zhP:"Wǒ yào chīfàn", de:"Ich möchte essen", es:"Quiero comida", fr:"Je veux manger", ar:"أريد الطعام", arP:"Ureed at-ta'am", ja:"食べ物が欲しいです", jaP:"Tabemono ga hoshii desu"},
+  {emoji:"🆘", cat:"need", en:"I need help", zh:"我需要帮助", zhP:"Wǒ xūyào bāngzhù", de:"Ich brauche Hilfe", es:"Necesito ayuda", fr:"J'ai besoin d'aide", ar:"أحتاج مساعدة", arP:"Ahtaju musa'ada", ja:"助けが必要です", jaP:"Tasuke ga hitsuyou desu"},
+  {emoji:"🤝", cat:"need", en:"Can you help me?", zh:"你能帮我吗？", zhP:"Nǐ néng bāng wǒ ma?", de:"Kannst du mir helfen?", es:"¿Puedes ayudarme?", fr:"Peux-tu m'aider ?", ar:"هل يمكنك مساعدتي؟", arP:"Hal yumkinuka musa'adati?", ja:"手伝ってくれますか？", jaP:"Tetsudatte kuremasu ka?"},
+  {emoji:"😕", cat:"me", en:"I don't understand", zh:"我不明白", zhP:"Wǒ bù míngbái", de:"Ich verstehe nicht", es:"No entiendo", fr:"Je ne comprends pas", ar:"لا أفهم", arP:"La afham", ja:"分かりません", jaP:"Wakarimasen"},
+  {emoji:"💡", cat:"me", en:"I understand", zh:"我明白了", zhP:"Wǒ míngbái le", de:"Ich verstehe", es:"Entiendo", fr:"Je comprends", ar:"أفهم", arP:"Afham", ja:"分かりました", jaP:"Wakarimashita"},
+  {emoji:"🧐", cat:"me", en:"What is this?", zh:"这是什么？", zhP:"Zhè shì shénme?", de:"Was ist das?", es:"¿Qué es esto?", fr:"Qu'est-ce que c'est ?", ar:"ما هذا؟", arP:"Ma haza?", ja:"これは何ですか？", jaP:"Kore wa nan desu ka?"},
+  {emoji:"🚻", cat:"need", en:"Where is the bathroom?", zh:"洗手间在哪里？", zhP:"Xǐshǒujiān zài nǎlǐ?", de:"Wo ist die Toilette?", es:"¿Dónde está el baño?", fr:"Où sont les toilettes ?", ar:"أين الحمام؟", arP:"Ayna al-hammam?", ja:"トイレはどこですか？", jaP:"Toire wa doko desu ka?"},
+  {emoji:"😱", cat:"feel", en:"I am scared", zh:"我害怕", zhP:"Wǒ hàipà", de:"Ich habe Angst", es:"Tengo miedo", fr:"J'ai peur", ar:"أنا خائف", arP:"Ana kha'if", arF:"أنا خائفة", arPF:"Ana kha'ifa", ja:"怖いです", jaP:"Kowai desu"},
+  {emoji:"🙂", cat:"feel", en:"It's okay", zh:"没关系", zhP:"Méi guānxì", de:"Es ist okay", es:"Está bien", fr:"Ce n'est pas grave", ar:"لا بأس", arP:"La ba's", ja:"大丈夫です", jaP:"Daijoubu desu"},
+  {emoji:"🧸", cat:"play", en:"Let's play", zh:"我们玩吧", zhP:"Wǒmen wán ba", de:"Lass uns spielen", es:"Vamos a jugar", fr:"Allons jouer", ar:"هيا نلعب", arP:"Hayya nal'ab", ja:"遊びましょう", jaP:"Asobimashou"},
+  {emoji:"🌟", cat:"praise", en:"Good job!", zh:"做得好！", zhP:"Zuò de hǎo!", de:"Gut gemacht!", es:"¡Buen trabajo!", fr:"Bon travail !", ar:"أحسنت!", arP:"Ahsant!", ja:"よくできました！", jaP:"Yoku dekimashita!"},
+  {emoji:"🏆", cat:"praise", en:"Well done!", zh:"干得好！", zhP:"Gàn de hǎo!", de:"Sehr gut!", es:"¡Bien hecho!", fr:"Bien joué !", ar:"عمل رائع!", arP:"Amal ra'i!", ja:"すごいね！", jaP:"Sugoi ne!"},
+  {emoji:"⚠️", cat:"play", en:"Be careful", zh:"小心", zhP:"Xiǎoxīn", de:"Sei vorsichtig", es:"Ten cuidado", fr:"Fais attention", ar:"كن حذرا", arP:"Kun hazeran", ja:"気をつけて", jaP:"Ki o tsukete"},
+  {emoji:"⏳", cat:"play", en:"Wait a moment", zh:"等一下", zhP:"Děng yíxià", de:"Warte einen Moment", es:"Espera un momento", fr:"Attends un instant", ar:"انتظر لحظة", arP:"Intazir lahza", ja:"少々お待ちください", jaP:"Shoushou omachi kudasai"},
+  {emoji:"📍", cat:"play", en:"Come here", zh:"过来", zhP:"Guòlái", de:"Komm her", es:"Ven aquí", fr:"Viens ici", ar:"تعال هنا", arP:"Ta'al huna", ja:"こっちに来て", jaP:"Kocchi ni kite"},
+  {emoji:"🪑", cat:"play", en:"Sit down", zh:"坐下", zhP:"Zuòxià", de:"Setz dich", es:"Siéntate", fr:"Assieds-toi", ar:"اجلس", arP:"Ijlis", ja:"座ってください", jaP:"Suwatte kudasai"},
+  {emoji:"🧍", cat:"play", en:"Stand up", zh:"站起来", zhP:"Zhàn qǐlái", de:"Steh auf", es:"Levántate", fr:"Lève-toi", ar:"قف", arP:"Qif", ja:"立ってください", jaP:"Tatte kudasai"},
+  {emoji:"👀", cat:"play", en:"Look at this", zh:"看这个", zhP:"Kàn zhège", de:"Schau dir das an", es:"Mira esto", fr:"Regarde ça", ar:"انظر إلى هذا", arP:"Unzur ila haza", ja:"これを見て", jaP:"Kore o mite"},
+  {emoji:"👂", cat:"play", en:"Listen carefully", zh:"仔细听", zhP:"Zǐxì tīng", de:"Hör gut zu", es:"Escucha con atención", fr:"Écoute bien", ar:"استمع جيدا", arP:"Istami' jayyidan", ja:"よく聞いてください", jaP:"Yoku kiite kudasai"},
+  {emoji:"😍", cat:"feel", en:"I like it", zh:"我喜欢", zhP:"Wǒ xǐhuān", de:"Ich mag das", es:"Me gusta", fr:"J'aime ça", ar:"يعجبني", arP:"Yu'jibuni", ja:"好きです", jaP:"Suki desu"},
+  {emoji:"👎", cat:"feel", en:"I don't like it", zh:"我不喜欢", zhP:"Wǒ bù xǐhuān", de:"Ich mag das nicht", es:"No me gusta", fr:"Je n'aime pas ça", ar:"لا يعجبني", arP:"La yu'jibuni", ja:"好きではありません", jaP:"Suki dewa arimasen"},
+  {emoji:"🎂", cat:"praise", en:"Happy birthday", zh:"生日快乐", zhP:"Shēngrì kuàilè", de:"Alles Gute zum Geburtstag", es:"Feliz cumpleaños", fr:"Joyeux anniversaire", ar:"عيد ميلاد سعيد", arP:"Eid milad sa'eed", ja:"お誕生日おめでとう", jaP:"Otanjoubi omedetou"},
+  {emoji:"🎉", cat:"praise", en:"Congratulations", zh:"恭喜", zhP:"Gōngxǐ", de:"Herzlichen Glückwunsch", es:"Felicidades", fr:"Félicitations", ar:"تهانينا", arP:"Tahanina", ja:"おめでとうございます", jaP:"Omedetou gozaimasu"},
+  {emoji:"📅", cat:"greet", en:"See you tomorrow", zh:"明天见", zhP:"Míngtiān jiàn", de:"Bis morgen", es:"Hasta mañana", fr:"À demain", ar:"أراك غدا", arP:"Araka ghadan", ja:"また明日", jaP:"Mata ashita"},
+  {emoji:"🤗", cat:"greet", en:"Take care", zh:"保重", zhP:"Bǎozhòng", de:"Pass auf dich auf", es:"Cuídate", fr:"Prends soin de toi", ar:"اعتن بنفسك", arP:"I'tani binafsik", ja:"元気でね", jaP:"Genki de ne"},
+  {emoji:"😳", cat:"greet", en:"I am sorry, I made a mistake", zh:"对不起，我做错了", zhP:"Duìbùqǐ, wǒ zuò cuò le", de:"Es tut mir leid, ich habe einen Fehler gemacht", es:"Lo siento, cometí un error", fr:"Désolé, j'ai fait une erreur", frF:"Désolée, j'ai fait une erreur", ar:"آسف، ارتكبت خطأ", arP:"Asif, irtakabtu khata'", arF:"آسفة، ارتكبت خطأ", arPF:"Asifa, irtakabtu khata'", ja:"ごめんなさい、間違えました", jaP:"Gomen nasai, machigaemashita"},
+  {emoji:"🌳", cat:"play", en:"Can I go outside?", zh:"我可以出去吗？", zhP:"Wǒ kěyǐ chūqù ma?", de:"Darf ich nach draußen gehen?", es:"¿Puedo salir afuera?", fr:"Puis-je sortir ?", ar:"هل يمكنني الخروج؟", arP:"Hal yumkinuni al-khuruj?", ja:"外に出てもいいですか？", jaP:"Soto ni dete mo ii desu ka?"},
+  {emoji:"👨‍👩‍👧‍👦", cat:"feel", en:"I love my family", zh:"我爱我的家人", zhP:"Wǒ ài wǒ de jiārén", de:"Ich liebe meine Familie", es:"Amo a mi familia", fr:"J'aime ma famille", ar:"أحب عائلتي", arP:"Uhibbu a'ilati", ja:"家族を愛しています", jaP:"Kazoku o aishiteimasu"}
+];
+const CATS={all:'⭐ All',greet:'👋 Hello & manners',me:'🙋 About me',feel:'💛 Feelings',need:'🤲 Needs',play:'🎈 Play',praise:'🌟 Praise'};
+const LANGS={en:{n:'English',f:'🇬🇧',c:'en-US'},ar:{n:'العربية',f:'🇸🇦',c:'ar-SA'},fr:{n:'Français',f:'🇫🇷',c:'fr-FR'},es:{n:'Español',f:'🇪🇸',c:'es-ES'},de:{n:'Deutsch',f:'🇩🇪',c:'de-DE'},zh:{n:'中文',f:'🇨🇳',c:'zh-CN'},ja:{n:'日本語',f:'🇯🇵',c:'ja-JP'}};
+const KIDS={malak:{n:'Malak',av:'👧',g:'f',cls:'m'},mohamed:{n:'Mohamed',av:'👦',g:'m',cls:'o'},noura:{n:'Noura',av:'👧🏽',g:'f',cls:'n'}};
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const today=()=>new Date().toLocaleDateString('en-CA');
+
+/* ---------- saved settings & progress (this device) ---------- */
+const DEF={need:5,good:10,perfect:20,lang:'en',cat:'all',level:'normal',check:SR?'voice':'parent',pin:'',kids:{malak:{stars:0,won:[],rounds:0},mohamed:{stars:0,won:[],rounds:0},noura:{stars:0,won:[],rounds:0}},timer:null};
+let S;try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem('kids-say-v1')||'{}'))}catch(e){S={...DEF}}
+S.kids=Object.assign({},DEF.kids,S.kids||{});if(S.mins){S.perfect=S.perfect||S.mins;delete S.mins}S.good=S.good||10;S.perfect=S.perfect||20;
+const save=()=>{try{localStorage.setItem('kids-say-v1',JSON.stringify(S))}catch(e){}};
+
+/* phrase text for this child (girl forms for Malak) */
+const txt=(d,l,g)=>(g=='f'&&d[l+'F'])||d[l];
+const pron=(d,l,g)=>(g=='f'&&d[l+'PF'])||d[l+'P']||'';
+const key=(i,l)=>l+':'+i;
+
+/* ---------- speech ---------- */
+let VOICES=[],AC=null;const loadV=()=>{try{VOICES=speechSynthesis.getVoices()}catch(e){}};if('speechSynthesis' in window){loadV();speechSynthesis.onvoiceschanged=loadV}
+let CUR_AUDIO=null,SAY_T=null;
+function stopSpeech(){try{if('speechSynthesis' in window&&(speechSynthesis.speaking||speechSynthesis.pending))speechSynthesis.cancel()}catch(e){}try{if(CUR_AUDIO){CUR_AUDIO.pause();CUR_AUDIO=null}}catch(e){}}
+function speakOnline(text,lang,done){/* when the phone has no voice for this language, or the viewer has no speech */
+ try{const tl=lang=='zh'?'zh-CN':lang;const a=new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&ttsspeed=0.8&tl='+tl+'&q='+encodeURIComponent(text.slice(0,190)));
+  CUR_AUDIO=a;a.onended=a.onerror=done;a.play().catch(()=>{done();const fb=document.getElementById('fb');if(fb){fb.className='fb no';fb.textContent='No sound: connect to the internet and turn up the volume.'}})}catch(e){done()}}
+function speak(text,lang,onend){text=String(text).replace(/\.\.\./g,'').trim();let fired=false;const done=()=>{if(!fired){fired=true;onend&&onend()}};
+ stopSpeech();clearTimeout(SAY_T);loadV();
+ const v=VOICES.find(v=>v.lang&&v.lang.replace('_','-').toLowerCase().startsWith(LANGS[lang].c.slice(0,2)));
+ if(!('speechSynthesis' in window)||!v){speakOnline(text,lang,done);return}
+ SAY_T=setTimeout(()=>{try{const u=new SpeechSynthesisUtterance(text);u.lang=v.lang;u.voice=v;u.rate=.8;u.volume=1;let started=false;
+  u.onstart=()=>{started=true};u.onend=done;u.onerror=()=>{if(!started)speakOnline(text,lang,done);else done()};
+  speechSynthesis.resume();speechSynthesis.speak(u);
+  setTimeout(()=>{if(!started){try{speechSynthesis.cancel()}catch(e){}speakOnline(text,lang,done)}},1200)}catch(e){speakOnline(text,lang,done)}},80)}
+function unlockAudio(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();const b=AC.createBuffer(1,1,22050),s=AC.createBufferSource();s.buffer=b;s.connect(AC.destination);s.start(0)}catch(e){}try{if('speechSynthesis' in window){loadV();speechSynthesis.resume()}}catch(e){}}
+['touchstart','pointerdown','click'].forEach(ev=>document.addEventListener(ev,unlockAudio,{capture:true,passive:true}));
+function norm(s,l){s=String(s||'').toLowerCase().replace(/\.\.\./g,' ');
+ if(l=='ar')s=s.replace(/[ً-ٰٟـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ؤ/g,'و').replace(/ئ/g,'ي');
+ else if(l!='zh'&&l!='ja')s=s.normalize('NFD').replace(/[̀-ͯ]/g,'');
+ s=s.replace(/[!¡?¿.,;:'"’`«»()\-–—、。？！，．・…؟،]/g,' ').replace(/\s+/g,' ').trim();
+ if(l=='zh'||l=='ja')s=s.replace(/\s/g,'');return s}
+function lev(a,b){const m=a.length,n=b.length;if(!m)return n;if(!n)return m;let p=Array.from({length:n+1},(_,j)=>j);for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]==b[j-1]?0:1));p=c}return p[n]}
+function score(heard,target,l){const h=norm(heard,l),t=norm(target,l);if(!h)return 0;
+ if(/\.\.\./.test(target)){const stem=norm(target.split('...')[0],l);if(stem&&h.startsWith(stem))return 1}
+ if(h==t||h.includes(t))return 1;return 1-lev(h,t)/Math.max(h.length,t.length)}
+const PASS={easy:.55,normal:.72,strict:.85};
+
+/* ---------- confetti & sounds ---------- */
+function tone(fs,dur=.12){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();let t=AC.currentTime;fs.forEach(f=>{const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.type='triangle';g.gain.setValueAtTime(.18,t);g.gain.exponentialRampToValueAtTime(.001,t+dur*1.6);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+dur*1.7);t+=dur})}catch(e){}}
+const yay=()=>tone([523,659,784,1047]),oops=()=>tone([330,262],.16),fanfare=()=>tone([523,523,523,659,784,659,784,1047],.13);
+function confetti(n=140){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const c=$('#cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ const C=['#FF6B6B','#FFD166','#06D6A0','#9B5DE5','#4CC9F0'],P=Array.from({length:n},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,v:2+Math.random()*4,w:6+Math.random()*6,a:Math.random()*6,s:(Math.random()-.5)*.3,c:C[Math.random()*5|0]}));
+ let f=0;(function loop(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.v;p.a+=p.s;p.x+=Math.sin(p.a)*1.5;x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillRect(-p.w/2,-p.w/4,p.w,p.w/2);x.restore()});if(++f<200)requestAnimationFrame(loop);else x.clearRect(0,0,c.width,c.height)})()}
+
+/* ---------- screens ---------- */
+let KID=null,G=null,REC=null;
+function setKid(k){KID=k;document.body.className=k||''}
+function home(){setKid(null);if(S.timer&&S.timer.end>Date.now())return reward(true);
+ return`<div class="hero"><div class="sun"></div><h1>Say it!</h1><p>Say ${S.need} phrases and win tablet time 🎉</p></div>
+<div class="rules"><div>🌟 Perfect<b>${S.perfect} min</b><span class="hint">every one right the first time</span></div><div>⭐ Good<b>${S.good} min</b><span class="hint">with some tries again</span></div></div>
+<div class="lbl">Who is playing?</div>
+<div class="kids">${Object.entries(KIDS).map(([k,c])=>`<button class="kidc ${c.cls}" onclick="start('${k}')"><span class="av">${c.av}</span><b>${c.n}</b><span class="stars">⭐ ${S.kids[k].stars}<br>${S.kids[k].won.length} words</span></button>`).join('')}</div>
+<div class="lbl">Language</div><div class="chips">${Object.entries(LANGS).map(([k,l])=>`<button class="chip ${S.lang==k?'on':''}" onclick="S.lang='${k}';save();go()">${l.f} ${l.n}</button>`).join('')}</div>
+<div class="lbl">Words</div><div class="chips">${Object.entries(CATS).map(([k,l])=>`<button class="chip ${S.cat==k?'on':''}" onclick="S.cat='${k}';save();go()">${l}</button>`).join('')}</div>
+${!SR&&S.check=='voice'?'':''}${S.check=='parent'?`<div class="warn">${SR?'Parent check is on: a grown-up taps ✅ when the phrase is said well.':'This browser cannot listen, so a grown-up taps ✅ when the phrase is said well. Chrome on Android can listen.'}</div>`:''}
+<button class="link" onclick="go('words')">📖 See all 50 words</button><button class="link" onclick="askParent('settings')">⚙️ Parents</button>`}
+function pool(){return DATA.map((d,i)=>({d,i})).filter(x=>S.cat=='all'||x.d.cat==S.cat)}
+function start(k){setKid(k);const P=pool(),c=KIDS[k],won=new Set(S.kids[k].won);
+ // new words first, then the rest, shuffled
+ const sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+ G={k,miss:0,help:0,skip:0,res:[],lang:S.lang,q:[...sh(P.filter(x=>!won.has(key(x.i,S.lang)))),...sh(P.filter(x=>won.has(key(x.i,S.lang))))],pos:0,ok:0,tries:0};
+ go('play')}
+function cur(){return G.q[G.pos%G.q.length]}
+function play(){const c=KIDS[G.k],{d,i}=cur(),l=G.lang,t=txt(d,l,c.g),p=pron(d,l,c.g);
+ return`<div class="top"><div class="who"><span class="av">${c.av}</span>${c.n}</div><button class="iconbtn" aria-label="Stop playing" onclick="stopRec();go()">🏠</button></div>
+<div class="progress" aria-label="${G.ok} of ${S.need} phrases">${Array.from({length:S.need},(_,k)=>`<span class="${k<G.ok?'on':''}">${G.res[k]=='p'?'🌟':'⭐'}</span>`).join('')}</div>
+<div class="pc"><div class="em">${d.emoji}</div><div class="en">${esc(d.en)}</div><div class="say" dir="auto"><span class="flag">${LANGS[l].f}</span> ${esc(t)}</div>${p&&l!='en'?`<div class="pron">${esc(p)}</div>`:''}</div>
+<div class="btns"><button class="big" onclick="listen()">🔊 Listen</button>${S.check=='voice'&&SR?`<button class="big mic" id="micb" onclick="mic()">🎤 Say it!</button>`:`<button class="big mic" onclick="parentOk()">✅ Said it well</button>`}</div>
+<div class="fb" id="fb" aria-live="polite">${S.check=='voice'&&SR?'Tap 🔊 to hear it, then tap 🎤 and say it.':'Tap 🔊 to hear it, then say it to a grown-up.'}</div>
+<div class="parentrow"><button class="small" onclick="next(false)">⏭️ Another word</button>${!(S.check=='voice'&&SR)?`<button class="small" onclick="parentMiss()">🔁 Try again</button>`:''}${S.check=='voice'&&SR&&G.tries>=2?`<button class="small" onclick="parentOk()">✅ Grown-up says OK</button>`:''}</div>`}
+function listen(){const c=KIDS[G.k],{d}=cur();speak(txt(d,G.lang,c.g),G.lang)}
+function stopRec(){try{REC&&REC.abort()}catch(e){}REC=null}
+function mic(){if(REC){stopRec();return}const c=KIDS[G.k],{d}=cur(),target=txt(d,G.lang,c.g),fb=$('#fb'),b=$('#micb');
+ stopSpeech();
+ const r=new SR();REC=r;r.lang=LANGS[G.lang].c;r.interimResults=false;r.maxAlternatives=5;r.continuous=false;
+ b.classList.add('rec');b.textContent='👂 Listening…';fb.className='fb';fb.textContent='Say it now!';
+ let got=false;
+ r.onresult=e=>{got=true;const alts=[...e.results[0]].map(a=>a.transcript);const best=alts.map(a=>[score(a,target,G.lang),a]).sort((a,b)=>b[0]-a[0])[0];judge(best[0],best[1])};
+ r.onerror=e=>{got=true;REC=null;b.classList.remove('rec');b.textContent='🎤 Say it!';
+  fb.className='fb no';fb.textContent=e.error=='not-allowed'||e.error=='service-not-allowed'?'The microphone is blocked. Allow it in Chrome, or use parent check in ⚙️ Parents.':e.error=='no-speech'?'I didn\'t hear anything. Try again, a bit louder!':e.error=='network'?'Listening needs the internet. Connect and try again.':'Let\'s try that again.'};
+ r.onend=()=>{REC=null;if(b){b.classList.remove('rec');b.textContent='🎤 Say it!'}if(!got){fb.className='fb no';fb.textContent='I didn\'t hear anything. Try again!'}};
+ try{r.start()}catch(e){REC=null;fb.textContent='The microphone could not start. Try again.'}}
+function judge(sc,heard){const fb=$('#fb');
+ if(sc>=PASS[S.level])return win(heard);
+ G.tries++;G.miss++;oops();fb.className='fb no';fb.innerHTML=(sc>.4?'So close! Listen again and try once more 💪':'Let\'s try again! Tap 🔊 to listen first.')+`<span class="heard">I heard: “${esc(heard)}”</span>`;
+ if(G.tries==2)$('.parentrow').innerHTML=`<button class="small" onclick="next(false)">⏭️ Another word</button><button class="small" onclick="parentOk()">✅ Grown-up says OK</button>`}
+function parentOk(){const help=S.check=='voice'&&SR;if(help)G.help++;win('',help)}
+function parentMiss(){G.tries++;G.miss++;oops();const fb=$('#fb');fb.className='fb no';fb.textContent='Let\'s try again! Tap 🔊 to listen first.'}
+function win(heard,helped){const k=G.k,K=S.kids[k],{i}=cur(),id=key(i,G.lang);G.res.push(G.tries||helped?'g':'p');G.ok++;K.stars++;if(!K.won.includes(id))K.won.push(id);save();yay();confetti(60);
+ const praise=['Amazing!','Super!','Well done!','Wow, great!','Brilliant!','Fantastic!'][Math.random()*6|0];
+ $('#fb').className='fb ok';$('#fb').innerHTML=`⭐ ${praise} ${KIDS[k].n}!${heard?`<span class="heard">I heard: “${esc(heard)}”</span>`:''}`;
+ document.querySelectorAll('.progress span').forEach((s,n)=>{s.classList.toggle('on',n<G.ok);if(n<G.ok)s.textContent=G.res[n]=='p'?'🌟':'⭐'});
+ if(G.ok>=S.need){G.perfect=G.res.every(r=>r=='p')&&!G.skip;G.mins=G.perfect?S.perfect:S.good;K.rounds++;if(G.perfect)K.perfects=(K.perfects||0)+1;save();setTimeout(()=>{fanfare();confetti(220);go('reward')},1100)}else setTimeout(()=>next(true),1400)}
+function next(auto){stopRec();if(!auto)G.skip++;G.pos++;G.tries=0;go('play')}
+function reward(running){const t=S.timer,c=KIDS[(t&&t.kid)||KID||'malak'];setKid((t&&t.kid)||KID);
+ if(running&&t){const left=Math.max(0,t.end-Date.now());return`<div class="reward"><div class="trophy">📱</div><h1>${c.n}'s tablet time</h1>
+<div class="tablet"><div class="clock" id="clk">${fmt(left)}</div><div class="bar"><i id="tbar" style="width:${left/(t.mins*6e4)*100}%"></i></div><div class="hint">When it reaches 0:00 the phone rings and tablet time is over.</div></div>
+<button class="small" onclick="askParent('stoptimer')">⏹️ Stop tablet time (grown-up)</button></div>`}
+ if(!G||!G.mins)return home();const first=G.res.filter(r=>r=='p').length,again=G.res.length-first;
+ return`<div class="reward"><div class="trophy">${G.perfect?'🏆':'🥈'}</div><h1>${G.perfect?'Perfect':'Good job'}, ${c.n}!</h1><span class="tier ${G.perfect?'':'good'}">${G.perfect?'🌟 PERFECT':'⭐ GOOD'}</span>
+<p class="baloo" style="font-size:19px;font-weight:700;margin:10px 0 0">${first} right the first time${again?' · '+again+' after trying again':''}${G.skip?' · '+G.skip+' skipped':''}</p>
+<div class="tablet"><div style="font-size:64px">📱</div><div class="baloo" style="font-size:26px;font-weight:800">You won ${G.mins} minutes of tablet time!</div>
+${G.perfect?'':`<div class="hint">Get every phrase right the first time to win ${S.perfect} minutes!</div>`}
+<button class="big mic" style="width:100%;margin-top:14px" onclick="startTimer()">▶️ Start tablet time</button></div>
+<button class="link" onclick="go()">Play again later</button></div>`}
+const fmt=ms=>{const s=Math.ceil(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function startTimer(){const m=G&&G.mins||S.good;S.timer={kid:KID,mins:m,end:Date.now()+m*6e4};G=null;save();go('reward')}
+let TI=setInterval(()=>{const t=S.timer;if(!t)return;const left=t.end-Date.now(),e=$('#clk');
+ if(left<=0){S.timer=null;save();tone([784,659,523,392],.25);setTimeout(()=>tone([784,659,523,392],.25),1300);
+  $('#app').innerHTML=`<div class="reward"><div class="trophy">⏰</div><h1>Tablet time is over!</h1><p class="baloo" style="font-size:22px">Great job today, ${KIDS[t.kid]?KIDS[t.kid].n:''}! Come back to win more.</p><button class="big" style="width:100%" onclick="go()">🏠 Home</button></div>`;return}
+ if(e){e.textContent=fmt(left);const b=$('#tbar');if(b)b.style.width=(left/(t.mins*6e4)*100)+'%'}},1000);
+/* parent gate: a simple sum keeps little fingers out */
+let GATE=null;
+function askParent(what){const a=3+Math.random()*6|0,b=4+Math.random()*5|0;GATE={what,ans:a*b};
+ $('#app').innerHTML=`<div class="top"><span></span><button class="iconbtn" aria-label="Back" onclick="go()">✖️</button></div><div class="panel" style="text-align:center"><div class="baloo" style="font-size:24px;font-weight:800">Grown-ups only</div><p class="hint">What is ${a} × ${b}?</p>
+<input id="gate" type="number" inputmode="numeric" style="text-align:center;font-size:24px"><button class="big mic" style="width:100%;margin-top:12px" onclick="gateOk()">OK</button><p class="hint" id="gmsg"></p></div>`;$('#gate').focus()}
+function gateOk(){if(+$('#gate').value!==GATE.ans){$('#gmsg').textContent='Not quite. Try again.';return}const w=GATE.what;GATE=null;if(w=='stoptimer'){S.timer=null;save();go()}else go(w)}
+function settings(){return`<div class="top"><h1 style="font-size:30px">Parents</h1><button class="iconbtn" aria-label="Done" onclick="go()">✔️</button></div>
+<div class="panel"><label for="sneed">Phrases to say well</label><input id="sneed" type="number" min="1" max="20" value="${S.need}" onchange="S.need=Math.max(1,Math.min(20,+this.value||5));save()">
+<label for="sperf">Minutes for a perfect round 🌟 (all right the first time)</label><input id="sperf" type="number" min="1" max="180" value="${S.perfect}" onchange="S.perfect=Math.max(1,Math.min(180,+this.value||20));save()">
+<label for="sgood">Minutes for a good round ⭐ (finished with some tries again)</label><input id="sgood" type="number" min="1" max="180" value="${S.good}" onchange="S.good=Math.max(1,Math.min(180,+this.value||10));save()">
+<label for="slevel">How strict is listening?</label><select id="slevel" onchange="S.level=this.value;save()">${[['easy','Easy · little ones, accents OK'],['normal','Normal'],['strict','Strict · nearly exact']].map(([k,l])=>`<option value="${k}"${S.level==k?' selected':''}>${l}</option>`).join('')}</select>
+<label for="scheck">Who checks the phrase?</label><select id="scheck" onchange="S.check=this.value;save()"><option value="voice"${S.check=='voice'?' selected':''}${SR?'':' disabled'}>The phone listens (microphone)</option><option value="parent"${S.check=='parent'?' selected':''}>A grown-up taps ✅</option></select>
+${SR?'<p class="hint">Listening uses Chrome\'s speech service, so it needs the internet.</p>':'<p class="hint">This browser cannot listen. Open the file in Chrome on Android to use the microphone.</p>'}</div>
+<div class="panel">${Object.entries(KIDS).map(([k,c])=>`<div style="display:flex;align-items:center;gap:10px;margin:6px 0"><span style="font-size:30px">${c.av}</span><b style="flex:1">${c.n}: ⭐ ${S.kids[k].stars} · ${S.kids[k].won.length} words · ${S.kids[k].rounds} wins (${S.kids[k].perfects||0} perfect)</b><button class="small" id="rs-${k}" onclick="resetKid('${k}',this)">Reset</button></div>`).join('')}</div>`}
+function resetKid(k,b){if(!b.dataset.s){b.dataset.s=1;b.textContent='Sure?';return}S.kids[k]={stars:0,won:[],rounds:0};save();go('settings')}
+function words(){const l=S.lang;return`<div class="top"><h1 style="font-size:30px">All 50 words</h1><button class="iconbtn" aria-label="Home" onclick="go()">🏠</button></div>
+<div class="chips">${Object.entries(LANGS).map(([k,x])=>`<button class="chip ${l==k?'on':''}" onclick="S.lang='${k}';save();go('words')">${x.f}</button>`).join('')}</div>
+<p class="hint" style="text-align:center">Green = learned by Malak, Mohamed or Noura. Tap 🔊 to hear.</p>
+<div class="wl">${DATA.map((d,i)=>{const done=Object.values(S.kids).some(K=>K.won.includes(key(i,l)));return`<div class="wc ${done?'done':''}"><span class="e">${d.emoji}</span><span style="min-width:0"><b dir="auto">${esc(d[l])}</b><small>${esc(l=='en'?'':d.en)}${d[l+'P']?' · '+esc(d[l+'P']):''}</small></span><button class="small x" aria-label="Listen" onclick="speak(${JSON.stringify(d[l]).replace(/"/g,'&quot;')},'${l}')">🔊</button></div>`}).join('')}</div>`}
+
+let VIEW='';
+function go(v){VIEW=v||'';stopRec();const V={play,reward:()=>reward(!!(S.timer&&S.timer.end>Date.now())),settings,words}[VIEW]||home;$('#app').innerHTML=V();scrollTo(0,0)}
+go();
+</script>
+<script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script></body>
+</html>
