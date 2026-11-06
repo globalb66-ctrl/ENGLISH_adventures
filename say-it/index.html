@@ -230,7 +230,9 @@ function mic(){if(REC){stopRec();return}const c=KIDS[G.k],{d}=cur(),target=txt(d
  let got=false;
  r.onresult=e=>{got=true;const alts=[...e.results[0]].map(a=>a.transcript);const best=alts.map(a=>[score(a,target,G.lang),a]).sort((a,b)=>b[0]-a[0])[0];judge(best[0],best[1])};
  r.onerror=e=>{got=true;REC=null;b.classList.remove('rec');b.textContent='🎤 Say it!';
-  fb.className='fb no';fb.textContent=e.error=='not-allowed'||e.error=='service-not-allowed'?'The microphone is blocked. Allow it in Chrome, or use parent check in ⚙️ Parents.':e.error=='no-speech'?'I didn\'t hear anything. Try again, a bit louder!':e.error=='network'?'Listening needs the internet. Connect and try again.':'Let\'s try that again.'};
+  fb.className='fb no';if(e.error=='not-allowed'||e.error=='service-not-allowed'){const ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
+  fb.innerHTML=(ios?'The microphone is blocked. On iPhone: Settings › Chrome (or Safari) › Microphone ON, and Settings › Siri › “Listen for” or Dictation ON. Then reload.':'The microphone is blocked. Tap the 🔒 next to the address, allow Microphone, then reload.')+'<br><button class="small" style="margin-top:10px" onclick="S.check=\'parent\';save();go(\'play\')">✅ Use grown-up check instead</button>';return}
+  fb.textContent=e.error=='no-speech'?'I didn\'t hear anything. Try again, a bit louder!':e.error=='network'?'Listening needs the internet. Connect and try again.':'Let\'s try that again.'};
  r.onend=()=>{REC=null;if(b){b.classList.remove('rec');b.textContent='🎤 Say it!'}if(!got){fb.className='fb no';fb.textContent='I didn\'t hear anything. Try again!'}};
  try{r.start()}catch(e){REC=null;fb.textContent='The microphone could not start. Try again.'}}
 function judge(sc,heard){const fb=$('#fb');
