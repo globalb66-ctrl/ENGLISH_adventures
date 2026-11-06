@@ -1,0 +1,31 @@
+{
+ "name": "Mohamed & Malak’s English Adventure",
+ "short_name": "English Adventure",
+ "description": "Duolingo-style English practice for Mohamed and Malak (Oxford Discover Level 2).",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#FFFFFF",
+ "theme_color": "#58CC02",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
